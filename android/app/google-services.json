@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "673197045507",
+    "project_id": "car-travels-eada6",
+    "storage_bucket": "car-travels-eada6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673197045507:android:602be0488aeaec61b69b36",
+        "android_client_info": {
+          "package_name": "com.example.car_travel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673197045507-okudc8ambsqfaqb09nano8nts5evacg9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.car_travel",
+            "certificate_hash": "4efe35ca6a82ec8290a1ab382c4423afb0e96fd5"
+          }
+        },
+        {
+          "client_id": "673197045507-cfd3an6g4ol422ijf3icqj4gc5o8n05u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfGE5XPwShq6ZcGhW24pCtqG8-dXQErvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673197045507-cfd3an6g4ol422ijf3icqj4gc5o8n05u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
