@@ -1,8 +1,5 @@
-// lib/views/AuthView.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../Logincontrollers/AuthController.dart';
 
 
@@ -139,7 +136,7 @@ class AuthView extends StatelessWidget {
                   ),
                   onPressed: controller.signInWithGoogle,
                   icon: Image.asset(
-                    'assets/google_Logo.png', // आपको यह लोगो अपने assets में जोड़ना होगा
+                    'assets/google_Logo.png',
                     height: 24,
                   ),
                   label: const Text(

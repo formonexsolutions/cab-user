@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../Routes/AppRoutes.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   void checkLoginStatus() async {
-    // 2 सेकंड की देरी
     await Future.delayed(const Duration(seconds: 2));
-
     if (FirebaseAuth.instance.currentUser != null) {
       Get.offAllNamed(AppRoutes.home);
     } else {
@@ -20,14 +17,13 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    checkLoginStatus(); // स्क्रीन लोड होते ही जाँच शुरू करें
+    checkLoginStatus();
     return Scaffold(
-      backgroundColor: Colors.black, // पृष्ठभूमि को काला करें
+      backgroundColor: Colors.black,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // यहाँ आप अपने ऐप का लोगो लगा सकते हैं
             const Icon(
               Icons.directions_car,
               size: 100,
@@ -43,7 +39,6 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 48),
-            // लोडिंग इंडिकेटर को भी रंग दें
             const CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
             ),

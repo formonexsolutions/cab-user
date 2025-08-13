@@ -4,7 +4,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'Routes/AppRoutes.dart';
 
-void main() async { // main() फ़ंक्शन को async बनाएँ
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Car Travel',
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white, // Default Scaffold background color set to white
         primarySwatch: Colors.deepPurple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: const AppBarTheme(
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      initialRoute: AppRoutes.splash, // Splash Screen से शुरू करें
+      initialRoute: AppRoutes.splash, // Splash Screen
       getPages: AppPages.routes,
     );
   }

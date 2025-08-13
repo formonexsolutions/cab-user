@@ -1,13 +1,6 @@
-// lib/services/firestore_service.dart
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// Yeh file Firestore se related sabhi operations ko handle karti hai.
-/// Yeh ek foundation layer hai jo aapke app ke data ko Firestore mein store karegi.
 
-// --- Data Models ---
-// Yeh classes Firestore documents ke structure ko define karti hain.
-// Aapko in classes ke instances banakar methods ko call karna hoga.
 
 class UserModel {
   String uid;
@@ -316,7 +309,6 @@ class PromotionModel {
 class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  /// Firestore mein naya user add karta hai.
   Future<void> createUser({required UserModel user}) async {
     try {
       await _firestore.collection('users').doc(user.uid).set(user.toJson(), SetOptions(merge: true));
@@ -325,7 +317,6 @@ class FirestoreService {
     }
   }
 
-  /// Firestore mein naya vehicle add karta hai.
   Future<void> createVehicle({required VehicleModel vehicle}) async {
     try {
       await _firestore.collection('vehicles').doc(vehicle.id).set(vehicle.toJson());
@@ -334,7 +325,6 @@ class FirestoreService {
     }
   }
 
-  /// Firestore mein naya ride record add karta hai.
   Future<void> createRide({required RideModel ride}) async {
     try {
       await _firestore.collection('rides').doc(ride.id).set(ride.toJson());
@@ -343,7 +333,6 @@ class FirestoreService {
     }
   }
 
-  /// Firestore mein naya transaction record add karta hai.
   Future<void> createTransaction({required TransactionModel transaction}) async {
     try {
       await _firestore.collection('transactions').doc(transaction.id).set(transaction.toJson());
@@ -352,7 +341,6 @@ class FirestoreService {
     }
   }
 
-  /// Firestore mein driver documents ka record add karta hai.
   Future<void> createDriverDocument({required DriverDocumentModel document}) async {
     try {
       await _firestore.collection('driver_documents').doc(document.id).set(document.toJson());
@@ -361,17 +349,14 @@ class FirestoreService {
     }
   }
 
-  /// App settings ko Firestore mein update ya create karta hai.
   Future<void> setAppSettings({required AppSettingsModel settings}) async {
     try {
-      // Isme hum ek fixed ID use kar rahe hain taaki hamesha ek hi document ho
       await _firestore.collection('settings').doc('app_config').set(settings.toJson());
     } catch (e) {
       print('Error setting app settings: $e');
     }
   }
 
-  /// Firestore mein rating ka record add karta hai.
   Future<void> createRating({required RatingModel rating}) async {
     try {
       await _firestore.collection('ratings').doc(rating.id).set(rating.toJson());
@@ -380,7 +365,6 @@ class FirestoreService {
     }
   }
 
-  /// Firestore mein notification ka record add karta hai.
   Future<void> createNotification({required NotificationModel notification}) async {
     try {
       await _firestore.collection('notifications').doc(notification.id).set(notification.toJson());
@@ -389,7 +373,6 @@ class FirestoreService {
     }
   }
 
-  /// Firestore mein promotion ka record add karta hai.
   Future<void> createPromotion({required PromotionModel promotion}) async {
     try {
       await _firestore.collection('promotions').doc(promotion.id).set(promotion.toJson());

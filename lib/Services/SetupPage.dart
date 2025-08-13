@@ -1,19 +1,12 @@
-// lib/pages/setup_page.dart
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
-
 import 'Firestore_Service_Class.dart'; // Uuid library for unique IDs
 
-/// Yeh page ek baar chalane ke liye banaya gaya hai.
-/// Jab aap 'Create Sample Data' button par click karenge,
-/// toh yeh Firestore mein sabhi collections mein dummy data daal dega.
 
 class SetupPage extends StatelessWidget {
   const SetupPage({super.key});
 
-  // Sample data banane ka function
   Future<void> _createSampleData(BuildContext context) async {
     final firestoreService = FirestoreService();
     const uuid = Uuid();
@@ -24,7 +17,6 @@ class SetupPage extends StatelessWidget {
     final rideId = 'sampleRideId001';
     final promoId = 'promoId001';
 
-    // 1. Users collection mein rider aur driver ka data banayein
     final sampleRider = UserModel(
       uid: riderUid,
       email: 'rider@example.com',
@@ -49,7 +41,6 @@ class SetupPage extends StatelessWidget {
     await firestoreService.createUser(user: sampleRider);
     await firestoreService.createUser(user: sampleDriver);
 
-    // 2. Vehicles collection mein gaadi ka data banayein
     final sampleVehicle = VehicleModel(
       id: 'sampleVehicleId789',
       driverId: driverUid,
@@ -62,7 +53,6 @@ class SetupPage extends StatelessWidget {
     );
     await firestoreService.createVehicle(vehicle: sampleVehicle);
 
-    // 3. Rides collection mein ek ride ka data banayein
     final sampleRide = RideModel(
       id: rideId,
       riderId: riderUid,
@@ -77,7 +67,6 @@ class SetupPage extends StatelessWidget {
     );
     await firestoreService.createRide(ride: sampleRide);
 
-    // 4. App Settings collection mein default settings banayein
     final sampleSettings = AppSettingsModel(
       id: 'app_config',
       baseFare: 50.0,
@@ -88,9 +77,6 @@ class SetupPage extends StatelessWidget {
     );
     await firestoreService.setAppSettings(settings: sampleSettings);
 
-    // --- New collections added below ---
-
-    // 5. Ratings collection mein ek rating ka data banayein
     final sampleRating = RatingModel(
       id: uuid.v4(),
       fromUid: riderUid,
@@ -102,7 +88,6 @@ class SetupPage extends StatelessWidget {
     );
     await firestoreService.createRating(rating: sampleRating);
 
-    // 6. Notifications collection mein ek notification ka data banayein
     final sampleNotification = NotificationModel(
       id: uuid.v4(),
       toUid: riderUid,
@@ -113,7 +98,6 @@ class SetupPage extends StatelessWidget {
     );
     await firestoreService.createNotification(notification: sampleNotification);
 
-    // 7. Promotions collection mein ek promotion ka data banayein
     final samplePromotion = PromotionModel(
       id: promoId,
       code: 'NEWUSER20',
@@ -125,7 +109,6 @@ class SetupPage extends StatelessWidget {
     );
     await firestoreService.createPromotion(promotion: samplePromotion);
 
-    // Ek message dikhayein jab sabhi data create ho jaye
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Sabhi collections mein sample data create ho gaya hai!')),
@@ -148,7 +131,7 @@ class SetupPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Niche diye gaye button par click karke Firestore mein sabhi collections aur dummy data banayein.',
+                'Click the button below to create all collections and dummy data in Firestore.',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
