@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../../Routes/AppRoutes.dart';
 import '../../../Utils/app_colors.dart';
+import '../../Logincontrollers/LoginController.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final LoginController controller = Get.find<LoginController>();
+
     // screen dimensions
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
@@ -47,6 +51,7 @@ class SignupPage extends StatelessWidget {
 
                 // Full Name input field
                 _buildTextField(
+                  controller: controller.fullNameController,
                   screenWidth,
                   screenHeight,
                   hintText: 'Enter your full name',
@@ -56,6 +61,7 @@ class SignupPage extends StatelessWidget {
 
                 // Email Address input field
                 _buildTextField(
+                  controller: controller.emailController,
                   screenWidth,
                   screenHeight,
                   hintText: 'Enter your email address',
@@ -63,18 +69,33 @@ class SignupPage extends StatelessWidget {
                 ),
                 SizedBox(height: screenHeight * 0.02),
 
-                // Phone Number input field
-                _buildTextField(
-                  screenWidth,
-                  screenHeight,
-                  hintText: 'Enter your phone number',
-                  icon: Icons.phone_android_outlined,
+                // Phone Number input field with country code picker
+                IntlPhoneField(
+                  initialCountryCode: 'IN', // Default country code India hai.
+                  decoration: InputDecoration(
+                    hintText: 'Enter your phone number',
+                    hintStyle: const TextStyle(color: AppColors.hintTextColor),
+                    filled: true,
+                    fillColor: AppColors.textFieldBackground,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(screenWidth * 0.03),
+                      borderSide: BorderSide.none,
+                    ),
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: screenHeight * 0.02,
+                      horizontal: screenWidth * 0.04,
+                    ),
+                  ),
+                  onChanged: (phone) {
+                    controller.phoneController.text = phone.completeNumber;
+                  },
                   keyboardType: TextInputType.phone,
                 ),
                 SizedBox(height: screenHeight * 0.02),
 
                 // Password input field
                 _buildTextField(
+                  controller: controller.passwordController,
                   screenWidth,
                   screenHeight,
                   hintText: 'Create password',
@@ -84,29 +105,8 @@ class SignupPage extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.05),
 
                 // Send OTP button
-                SizedBox(
-                  width: double.infinity,
-                  height: screenHeight * 0.07,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.toNamed(AppRoutes.otpVerify);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.buttonYellow,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                      ),
-                    ),
-                    child: Text(
-                      'Send OTP',
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.045,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.buttonTextBlack,
-                      ),
-                    ),
-                  ),
-                ),
+                buildSignUpButton(screenWidth, screenHeight),
+
                 SizedBox(height: screenHeight * 0.04),
 
                 // OR divider
@@ -200,13 +200,15 @@ class SignupPage extends StatelessWidget {
         required IconData icon,
         bool isPassword = false,
         TextInputType keyboardType = TextInputType.text,
+        TextEditingController? controller, // Optional controller
       }) {
     return TextFormField(
+      controller: controller, // Use the optional controller
       obscureText: isPassword,
       keyboardType: keyboardType,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(color: AppColors.hintTextColor),
+        hintStyle: const TextStyle(color: AppColors.hintTextColor),
         prefixIcon: Icon(
           icon,
           color: AppColors.iconColor,
@@ -245,4 +247,54 @@ class SignupPage extends StatelessWidget {
       ),
     );
   }
+}
+
+
+Widget buildSignUpButton(double screenWidth, double screenHeight) {
+  final LoginController controller = Get.find<LoginController>();
+
+  return SizedBox(
+    width: double.infinity,
+    height: screenHeight * 0.07,
+    child: Obx(
+          () => ElevatedButton(
+        onPressed: controller.isLoading.value
+            ? null // If loading, the button is disabled.
+            : () {
+          // --- Validation Logic ---
+          if (controller.fullNameController.text.isEmpty ||
+              controller.phoneController.text.isEmpty) {
+            // Show an error message if fields are empty
+            Get.snackbar(
+              'Error',
+              'Please fill in your name and mobile number.',
+              backgroundColor: Colors.red,
+              colorText: Colors.white,
+            );
+          } else {
+            // If validation passes, proceed with the API call
+            controller.signUp();
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.buttonYellow,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(screenWidth * 0.04),
+          ),
+        ),
+        child: controller.isLoading.value
+            ? const CircularProgressIndicator(
+          color: AppColors.buttonTextBlack,
+        ) // Show a loading indicator
+            : Text(
+          'Send OTP',
+          style: TextStyle(
+            fontSize: screenWidth * 0.045,
+            fontWeight: FontWeight.bold,
+            color: AppColors.buttonTextBlack,
+          ),
+        ),
+      ),
+    ),
+  );
 }

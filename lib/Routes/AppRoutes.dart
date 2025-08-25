@@ -10,7 +10,9 @@ import '../Login/Views/Splash/SplashScreen2.dart';
 import '../Login/Views/Splash/SplashScreen3.dart';
 import '../Login/Views/Splash/WelcomePage.dart';
 import '../Login/Views/SplashScreen.dart';
+import '../View/Homepage/HomeMapScreen.dart';
 import '../View/Homepage/HomeScreen.dart';
+import '../View/Homepage/SearchView.dart';
 import 'Binding.dart';
 
 
@@ -26,6 +28,8 @@ abstract class AppRoutes {
   static const otpVerify = '/otpVerify';
   static const auth = '/auth';
   static const home = '/home';
+  static const searchView = '/searchView';
+  static const homeMap = '/homeMap';
 }
 
 // The list of all pages in the application with their bindings.
@@ -51,6 +55,7 @@ abstract class AppPages {
       transition: Transition.downToUp, // Right-to-left transition
       transitionDuration: const Duration(milliseconds: 500),
       curve: Curves.easeIn,
+      binding: LoginBinding(),
     ),
 
     GetPage(
@@ -67,6 +72,7 @@ abstract class AppPages {
       transition: Transition.downToUp, // Right-to-left transition
       transitionDuration: const Duration(milliseconds: 500),
       curve: Curves.easeIn,
+      binding: LoginBinding(),
     ),
 
     GetPage(
@@ -75,6 +81,7 @@ abstract class AppPages {
       transition: Transition.downToUp, // Right-to-left transition
       transitionDuration: const Duration(milliseconds: 500),
       curve: Curves.easeIn,
+      binding: LoginBinding(),
     ),
 
     GetPage(
@@ -83,6 +90,7 @@ abstract class AppPages {
       transition: Transition.downToUp, // Right-to-left transition
       transitionDuration: const Duration(milliseconds: 500),
       curve: Curves.easeIn,
+      binding: LoginBinding(),
     ),
 
     GetPage(
@@ -95,6 +103,17 @@ abstract class AppPages {
       name: AppRoutes.home,
       page: () => const HomeView(),
       binding: HomeBinding(),
+     ),
+
+    GetPage(
+      name: AppRoutes.homeMap,
+      page: () => const MapScreen(),
+     ),
+
+    GetPage(
+      name: AppRoutes.searchView,
+      page: () => const SearchView(),
+      binding: SearchViewBinding(),
      ),
   ];
 }

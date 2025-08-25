@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../../Routes/AppRoutes.dart';
 import '../../Services/Firestore_Service_Class.dart';
 
-class LoginController extends GetxController {
+class AuthController extends GetxController {
   final _auth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
 

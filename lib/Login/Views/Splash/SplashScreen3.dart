@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../Routes/AppRoutes.dart';
 import '../../../Utils/app_colors.dart';
+import '../../Logincontrollers/LoginController.dart';
 
 class SplashScreen3 extends StatefulWidget {
   const SplashScreen3({Key? key}) : super(key: key);
@@ -11,14 +12,18 @@ class SplashScreen3 extends StatefulWidget {
 }
 
 class _SplashScreen3State extends State<SplashScreen3> {
+
+  final LoginController controller = Get.find<LoginController>();
+
   bool isLoading = false;
+
 
   void checkLoginStatus() async {
     setState(() {
       isLoading = true;
     });
     await Future.delayed(const Duration(seconds: 1));
-    Get.toNamed(AppRoutes.welcome);
+    controller.checkAuthentication();
     setState(() {
       isLoading = false;
     });

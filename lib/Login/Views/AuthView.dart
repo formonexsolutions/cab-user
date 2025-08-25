@@ -8,7 +8,7 @@ class AuthView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LoginController controller = Get.find<LoginController>();
+    final AuthController controller = Get.find<AuthController>();
 
     return Scaffold(
       backgroundColor: Colors.black,

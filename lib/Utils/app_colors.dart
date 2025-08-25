@@ -24,4 +24,7 @@ class AppColors {
 
   // Icon colors
   static const Color iconColor = primaryYellow;
+
+  static const Color greenAccent = Color(0xFF4CAF50);
+
 }

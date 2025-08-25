@@ -1,100 +1,92 @@
-// lib/controllers/home_controller.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import '../../Services/Firestore_Service_Class.dart';
-// Firestore Service ko import karein
+import '../../View/Homepage/RideDetailsView.dart';
+import '../RideDetailsController.dart';
 
 class HomeController extends GetxController {
-  // Reactive variables to manage the state of the Home page
   final RxString destination = ''.obs;
-  final RxString selectedVehicle = 'Sedan'.obs; // Default selected vehicle
+  final RxString selectedVehicle = 'Premium'.obs; // "Popular" vehicle ko default set karein
   final Rx<LatLng?> currentLocation = Rx<LatLng?>(null);
   final RxBool isRequestingRide = RxBool(false);
-  final RxString rideStatus = 'initial'.obs; // 'initial', 'finding_driver', 'on_the_way', 'arrived'
+  final RxString rideStatus = 'initial'.obs;
+  final RxBool isMapReady = false.obs;
+  final RxBool isRideSelectionVisible = false.obs; // Naya variable
+  RxBool isSearchingForRide = false.obs;
 
-  // Map ke liye instance aur markers
-  GoogleMapController? mapController;
-  final Set<Marker> markers = {};
+  MapController? mapController;
+  final RxSet<Marker> markers = <Marker>{}.obs;
 
-  final _firestoreService = FirestoreService();
 
   @override
   void onInit() {
     super.onInit();
-    // App start hone par live location fetch karein.
     _fetchLiveLocation();
   }
 
-  /// Live location fetch karne ka simulation
   Future<void> _fetchLiveLocation() async {
-    // Yahan aap 'geolocator' package ka use karke real location laa sakte hain.
-    // Example:
-    // Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    // currentLocation.value = LatLng(position.latitude, position.longitude);
-
-    // Abhi ke liye, hum ek dummy location use kar rahe hain
     await Future.delayed(const Duration(seconds: 2));
-    currentLocation.value = const LatLng(28.7041, 77.1025); // Delhi
+    currentLocation.value = const LatLng(18.5539, 73.9476); // Pune
 
-    // Map par user ka marker add karein
     if (currentLocation.value != null) {
       markers.add(
         Marker(
-          markerId: const MarkerId('userLocation'),
-          position: currentLocation.value!,
-          infoWindow: const InfoWindow(title: 'Meri Location'),
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+          point: currentLocation.value!,
+          width: 80,
+          height: 80,
+          child: const Icon(
+            Icons.location_on,
+            color: Colors.blue,
+            size: 40,
+          ),
         ),
       );
     }
   }
 
-  /// Jab GoogleMap create ho jaye
-  void onMapCreated(GoogleMapController controller) {
+  void onMapCreated(MapController controller) {
     mapController = controller;
+    isMapReady.value = true;
+
+    if (currentLocation.value != null) {
+      mapController!.move(currentLocation.value!, 15.0);
+    }
   }
 
-  /// User ne 'Where to?' mein destination set kiya hai
+  // Ab destination select hone ke baad ride selection panel show karein
   void selectDestination(String newDestination) {
     destination.value = newDestination;
-    print('Destination selected: $newDestination');
-    // Is method mein aap Google Maps API se details fetch kar sakte hain.
+    isRideSelectionVisible.value = true; // Panel ko visible karein
   }
 
-  /// User ne vehicle type select kiya hai
   void selectVehicle(String vehicle) {
     selectedVehicle.value = vehicle;
-    print('Vehicle selected: $vehicle');
   }
 
-  /// 'Request Ride' button par click karne par yeh method call hoga
-  Future<void> requestRide() async {
-    isRequestingRide.value = true;
-    rideStatus.value = 'finding_driver';
-
-    // Yahan par aap ride request ki logic implement karenge.
-    // 1. Rider ki current location aur destination fetch karein.
-    // 2. Nearest available drivers ko find karein (Firestore queries ka use karke).
-    // 3. Ek naya 'ride' document create karein 'rides' collection mein.
-    // 4. Driver ko push notification bhejkar ride ke liye alert karein.
-
-    // Abhi ke liye, hum 5 second ka delay daalkar ride ko confirm hone ka simulation karte hain.
-    await Future.delayed(const Duration(seconds: 5));
-
-    rideStatus.value = 'on_the_way';
-    isRequestingRide.value = false;
-
-    Get.snackbar(
-      'Ride Confirmed',
-      '${selectedVehicle.value} aapki taraf aa raha hai.',
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
-    );
-
-    print('Ride requested: ${selectedVehicle.value} to ${destination.value}');
+  // Back button press hone par state reset karein
+  void hideRideSelection() {
+    isRideSelectionVisible.value = false;
   }
+
+
+  void requestRide() {
+    isSearchingForRide.value = true;
+
+    // Wait for 5 seconds to simulate searching for a ride
+    Future.delayed(const Duration(seconds: 5), () {
+      // After 5 seconds, change the state to hide the searching panel
+      isSearchingForRide.value = false;
+
+      // Navigate to the RideDetailsView and bind its controller
+      Get.to(() => const RideDetailsView(), binding: BindingsBuilder(() {
+        Get.lazyPut<RideDetailsController>(() => RideDetailsController());
+      }));
+    });
+  }
+  void cancelRide() {
+    isSearchingForRide.value = false;
+  }
+
 }
