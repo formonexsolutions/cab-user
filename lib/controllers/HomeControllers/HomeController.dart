@@ -1,3 +1,4 @@
+import 'package:car_travel/Routes/AppRoutes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -80,9 +81,7 @@ class HomeController extends GetxController {
       isSearchingForRide.value = false;
 
       // Navigate to the RideDetailsView and bind its controller
-      Get.to(() => const RideDetailsView(), binding: BindingsBuilder(() {
-        Get.lazyPut<RideDetailsController>(() => RideDetailsController());
-      }));
+      Get.toNamed(AppRoutes.rideDetailsView);
     });
   }
   void cancelRide() {

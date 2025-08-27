@@ -12,7 +12,11 @@ import '../Login/Views/Splash/WelcomePage.dart';
 import '../Login/Views/SplashScreen.dart';
 import '../View/Homepage/HomeMapScreen.dart';
 import '../View/Homepage/HomeScreen.dart';
+import '../View/Homepage/PaymentView.dart';
+import '../View/Homepage/RideCompletedView.dart';
+import '../View/Homepage/RideDetailsView.dart';
 import '../View/Homepage/SearchView.dart';
+import '../View/Homepage/trackDriver.dart';
 import 'Binding.dart';
 
 
@@ -30,6 +34,10 @@ abstract class AppRoutes {
   static const home = '/home';
   static const searchView = '/searchView';
   static const homeMap = '/homeMap';
+  static const rideDetailsView = '/rideDetailsView';
+  static const trackDriver = '/trackDriver';
+  static const rideCompletedView = '/rideCompletedView';
+  static const paymentView = '/paymentView';
 }
 
 // The list of all pages in the application with their bindings.
@@ -114,6 +122,29 @@ abstract class AppPages {
       name: AppRoutes.searchView,
       page: () => const SearchView(),
       binding: SearchViewBinding(),
+     ),
+
+    GetPage(
+      name: AppRoutes.rideDetailsView,
+      page: () => const RideDetailsView(),
+      binding: RideDetailsBinding(),
+     ),
+
+    GetPage(
+      name: AppRoutes.trackDriver,
+      page: () =>   TrackDriver(),
+      binding: RideDetailsBinding(),
+     ),
+
+    GetPage(
+      name: AppRoutes.rideCompletedView,
+      page: () =>   RideCompletedView(),
+      binding: RideCompletedViewBinding(),
+     ),
+    GetPage(
+      name: AppRoutes.paymentView,
+      page: () =>   PaymentView(),
+      binding: PaymentViewBinding(),
      ),
   ];
 }

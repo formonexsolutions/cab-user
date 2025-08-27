@@ -6,6 +6,9 @@ import '../Login/Logincontrollers/AuthController.dart';
 import '../Login/Logincontrollers/LoginController.dart';
 import '../controllers/HomeControllers/HomeController.dart';
 import '../controllers/HomeControllers/search_controller.dart';
+import '../controllers/PaymentController.dart';
+import '../controllers/RideCompletedController.dart';
+import '../controllers/RideDetailsController.dart';
 
 class AuthBinding implements Bindings {
   @override
@@ -32,5 +35,26 @@ class SearchViewBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<PlaceSearchController>(() => PlaceSearchController());
+  }
+}
+
+class RideDetailsBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<RideDetailsController>(() => RideDetailsController());
+  }
+}
+
+class RideCompletedViewBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<RideCompletedController>(() => RideCompletedController());
+  }
+}
+
+class PaymentViewBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<PaymentController>(() => PaymentController());
   }
 }

@@ -2,6 +2,7 @@ import 'package:car_travel/Routes/AppRoutes.dart';
 import 'package:car_travel/Utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../Utils/CustomDrawer.dart';
 import '../../controllers/HomeControllers/HomeController.dart';
 import 'package:flutter_map/flutter_map.dart';
 
@@ -12,6 +13,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const CustomDrawer(),
       body: Stack(
         children: [
           Obx(
@@ -34,50 +36,122 @@ class HomeView extends GetView<HomeController> {
               ],
             ),
           ),
+          // Positioned(
+          //   top: 50,
+          //   left: 20,
+          //   child: SafeArea(
+          //     child: Obx(
+          //           () => Row(
+          //             children: [
+          //               InkWell(
+          //                 onTap: () {
+          //               if (controller.isRideSelectionVisible.value) {
+          //                 controller.hideRideSelection();
+          //               } else {
+          //                 Get.back();
+          //               }
+          //                                 },
+          //                                 child: Container(
+          //               padding: const EdgeInsets.all(8),
+          //               decoration: const BoxDecoration(
+          //                 color: AppColors.primaryWhite,
+          //                 shape: BoxShape.circle,
+          //                 boxShadow: [
+          //                   BoxShadow(
+          //                     color: Colors.black12,
+          //                     blurRadius: 5,
+          //                     offset: Offset(0, 3),
+          //                   ),
+          //                 ],
+          //               ),
+          //               child: Icon(
+          //                 controller.isRideSelectionVisible.value
+          //                     ? Icons.arrow_back_ios
+          //                     : Icons.menu,
+          //                 color: AppColors.primaryBlack,
+          //               ),
+          //                                 ),
+          //                               ),
+          //               Container(
+          //                 decoration: const BoxDecoration(
+          //                   color: Colors.white,
+          //                   shape: BoxShape.circle,
+          //                   boxShadow: [
+          //                     BoxShadow(
+          //                       color: Colors.black12,
+          //                       blurRadius: 5,
+          //                       offset: Offset(0, 3),
+          //                     ),
+          //                   ],
+          //                 ),
+          //                 child: Builder(
+          //                   builder: (BuildContext innerContext) {
+          //                     return IconButton(
+          //                       icon: const Icon(Icons.menu_rounded),
+          //                       color: Colors.black,
+          //                       onPressed: () {
+          //                         // Use the 'innerContext' provided by the Builder
+          //                         Scaffold.of(innerContext).openDrawer();
+          //                       },
+          //                     );
+          //                   },
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //     ),
+          //   ),
+          // ),
           Positioned(
             top: 50,
             left: 20,
+            right: 20,
             child: SafeArea(
-              child: Obx(
-                    () => InkWell(
-                  onTap: () {
-                    if (controller.isRideSelectionVisible.value) {
-                      controller.hideRideSelection();
-                    } else {
-                      Get.back();
-                    }
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
-                      color: AppColors.primaryWhite,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 5,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      controller.isRideSelectionVisible.value
-                          ? Icons.arrow_back_ios
-                          : Icons.menu,
-                      color: AppColors.primaryBlack,
-                    ),
-                  ),
-                ),
+              child: Builder(
+                builder: (BuildContext innerContext) {
+                  return Obx(
+                        () {
+                      if (controller.isRideSelectionVisible.value) {
+                        // Condition 2: Show back button on left, menu on right
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Back Button
+                            _buildCircularIconButton(
+                              icon: Icons.arrow_back_ios,
+                              onPressed: () => controller.hideRideSelection(),
+                            ),
+                            // Menu Button for the RIGHT drawer
+                            _buildCircularIconButton(
+                              icon: Icons.menu,
+                              onPressed: () => Scaffold.of(innerContext).openDrawer(),
+                            ),
+                          ],
+                        );
+                      } else {
+                        // Condition 1: Show single menu button on left
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: _buildCircularIconButton(
+                            icon: Icons.menu,
+                            onPressed: () => Scaffold.of(innerContext).openDrawer(),
+                          ),
+                        );
+                      }
+                    },
+                  );
+                },
               ),
             ),
           ),
-          DraggableScrollableSheet(
-            initialChildSize: 0.35,
-            minChildSize: 0.35,
-            maxChildSize: 0.8,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return Obx(
-                    () {
+          Obx(() {
+            final size = _getSheetSize();
+            return DraggableScrollableSheet(
+              initialChildSize: size,
+              minChildSize: size,
+              maxChildSize: size,
+              builder: (BuildContext context, ScrollController scrollController) {
+                return Obx(() {
                   if (controller.isSearchingForRide.value) {
                     return _buildSearchingPanel(context, scrollController);
                   } else if (controller.isRideSelectionVisible.value) {
@@ -85,13 +159,48 @@ class HomeView extends GetView<HomeController> {
                   } else {
                     return _buildWhereToPanel(context, scrollController);
                   }
-                },
-              );
-            },
-          ),
+                });
+              },
+            );
+          })
+
         ],
       ),
     );
+  }
+
+  Widget _buildCircularIconButton({
+    required IconData icon,
+    required VoidCallback onPressed,
+  }) {
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: const BoxDecoration(
+          color: AppColors.primaryWhite,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Icon(
+          icon,
+          color: AppColors.primaryBlack,
+        ),
+      ),
+    );
+  }
+
+
+  double _getSheetSize() {
+    if (controller.isSearchingForRide.value) return 0.65;
+    if (controller.isRideSelectionVisible.value) return 0.6;
+    return 0.4;
   }
 
   Widget _buildQuickDestinationButton({required String label, required VoidCallback onTap}) {
@@ -123,7 +232,7 @@ class HomeView extends GetView<HomeController> {
 
   Widget _buildVehicleSelectionPanel(BuildContext context, ScrollController scrollController) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: const BoxDecoration(
         color: AppColors.primaryWhite,
         borderRadius: BorderRadius.only(
@@ -151,7 +260,7 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           // Vehicle Options List
           _buildVehicleOption(
             type: 'Economy',

@@ -1,4 +1,9 @@
+import 'package:car_travel/Routes/AppRoutes.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
 
 class RideDetailsController extends GetxController {
 
@@ -16,6 +21,7 @@ class RideDetailsController extends GetxController {
   void callDriver() {
     // Add logic to call the driver
     Get.snackbar('Calling Driver', 'Initiating call to $driverName');
+    Get.toNamed(AppRoutes.rideCompletedView);
   }
 
   void messageDriver() {
@@ -24,12 +30,45 @@ class RideDetailsController extends GetxController {
   }
 
   void trackRide() {
-    // Add logic to track the ride on the map
-    Get.snackbar('Tracking Ride', 'Showing live location of $driverName');
+    Get.toNamed(AppRoutes.trackDriver);
   }
 
   void cancelRide() {
     // Add logic to cancel the ride
     Get.snackbar('Ride Cancelled', 'Your ride has been cancelled.');
   }
+
+
+  final RxString destination = ''.obs;
+  final RxString selectedVehicle = 'Premium'.obs; // "Popular" vehicle ko default set karein
+  final Rx<LatLng?> currentLocation = Rx<LatLng?>(null);
+  MapController? mapController;
+  final RxSet<Marker> markers = <Marker>{}.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _fetchLiveLocation();
+  }
+
+  Future<void> _fetchLiveLocation() async {
+    await Future.delayed(const Duration(seconds: 2));
+    currentLocation.value = const LatLng(18.5539, 73.9476); // Pune
+
+    if (currentLocation.value != null) {
+      markers.add(
+        Marker(
+          point: currentLocation.value!,
+          width: 80,
+          height: 80,
+          child: Icon(
+            Icons.location_on,
+            color: Colors.blue,
+            size: 40,
+          ),
+        ),
+      );
+    }
+  }
+
 }

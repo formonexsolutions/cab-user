@@ -59,15 +59,15 @@ class SignupPage extends StatelessWidget {
                 ),
                 SizedBox(height: screenHeight * 0.02),
 
-                // Email Address input field
-                _buildTextField(
-                  controller: controller.emailController,
-                  screenWidth,
-                  screenHeight,
-                  hintText: 'Enter your email address',
-                  icon: Icons.mail_outline,
-                ),
-                SizedBox(height: screenHeight * 0.02),
+                // // Email Address input field
+                // _buildTextField(
+                //   controller: controller.emailController,
+                //   screenWidth,
+                //   screenHeight,
+                //   hintText: 'Enter your email address',
+                //   icon: Icons.mail_outline,
+                // ),
+                // SizedBox(height: screenHeight * 0.02),
 
                 // Phone Number input field with country code picker
                 IntlPhoneField(
@@ -91,17 +91,17 @@ class SignupPage extends StatelessWidget {
                   },
                   keyboardType: TextInputType.phone,
                 ),
-                SizedBox(height: screenHeight * 0.02),
-
-                // Password input field
-                _buildTextField(
-                  controller: controller.passwordController,
-                  screenWidth,
-                  screenHeight,
-                  hintText: 'Create password',
-                  icon: Icons.lock_outline,
-                  isPassword: true,
-                ),
+                // SizedBox(height: screenHeight * 0.02),
+                //
+                // // Password input field
+                // _buildTextField(
+                //   controller: controller.passwordController,
+                //   screenWidth,
+                //   screenHeight,
+                //   hintText: 'Create password',
+                //   icon: Icons.lock_outline,
+                //   isPassword: true,
+                // ),
                 SizedBox(height: screenHeight * 0.05),
 
                 // Send OTP button

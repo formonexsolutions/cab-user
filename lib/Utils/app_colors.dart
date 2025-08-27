@@ -15,12 +15,15 @@ class AppColors {
 
   // Button colors
   static const Color buttonYellow = primaryYellow;
+  static const Color buttonTextYellow = Color(0xFFEFBA03);
+
   static const Color buttonTextBlack = primaryBlack;
   static const Color buttonOutline = primaryYellow;
 
   // Background colors
   static const Color scaffoldBackground = primaryWhite;
   static Color textFieldBackground = Colors.grey[200]!;
+  static const Color backgroundLightGrey = Color(0xFFF5F5F5);
 
   // Icon colors
   static const Color iconColor = primaryYellow;

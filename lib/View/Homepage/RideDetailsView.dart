@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import '../../Utils/CustomDrawer.dart';
 import '../../controllers/RideDetailsController.dart';
 
 class RideDetailsView extends GetView<RideDetailsController> {
@@ -40,6 +41,7 @@ class RideDetailsView extends GetView<RideDetailsController> {
     Get.put(RideDetailsController());
 
     return Scaffold(
+      drawer: const CustomDrawer(),
       body: Stack(
         children: [
           // Background Map Image
@@ -414,10 +416,17 @@ class RideDetailsView extends GetView<RideDetailsController> {
                           ),
                         ],
                       ),
-                      child: IconButton(
-                        icon: const Icon(Icons.menu_rounded),
-                        color: Colors.black,
-                        onPressed: () {},
+                      child: Builder(
+                        builder: (BuildContext innerContext) {
+                          return IconButton(
+                            icon: const Icon(Icons.menu_rounded),
+                            color: Colors.black,
+                            onPressed: () {
+                              // Use the 'innerContext' provided by the Builder
+                              Scaffold.of(innerContext).openDrawer();
+                            },
+                          );
+                        },
                       ),
                     ),
                   ],
