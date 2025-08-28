@@ -16,7 +16,9 @@ import '../View/Homepage/PaymentView.dart';
 import '../View/Homepage/RideCompletedView.dart';
 import '../View/Homepage/RideDetailsView.dart';
 import '../View/Homepage/SearchView.dart';
+import '../View/Homepage/cancel_ride_page.dart';
 import '../View/Homepage/trackDriver.dart';
+import '../View/Rides/all_rides_page.dart';
 import 'Binding.dart';
 
 
@@ -38,6 +40,8 @@ abstract class AppRoutes {
   static const trackDriver = '/trackDriver';
   static const rideCompletedView = '/rideCompletedView';
   static const paymentView = '/paymentView';
+  static const cancelRidePage = '/cancelRidePage';
+  static const rideHistory = '/rideHistory';
 }
 
 // The list of all pages in the application with their bindings.
@@ -145,6 +149,18 @@ abstract class AppPages {
       name: AppRoutes.paymentView,
       page: () =>   PaymentView(),
       binding: PaymentViewBinding(),
+     ),
+
+    GetPage(
+      name: AppRoutes.cancelRidePage,
+      page: () =>   CancelRidePage(),
+      binding: RideDetailsBinding(),
+     ),
+
+    GetPage(
+      name: AppRoutes.rideHistory,
+      page: () =>   AllRidesPage(),
+      binding: AllRidesPageBinding(),
      ),
   ];
 }

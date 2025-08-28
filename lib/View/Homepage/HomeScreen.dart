@@ -36,72 +36,6 @@ class HomeView extends GetView<HomeController> {
               ],
             ),
           ),
-          // Positioned(
-          //   top: 50,
-          //   left: 20,
-          //   child: SafeArea(
-          //     child: Obx(
-          //           () => Row(
-          //             children: [
-          //               InkWell(
-          //                 onTap: () {
-          //               if (controller.isRideSelectionVisible.value) {
-          //                 controller.hideRideSelection();
-          //               } else {
-          //                 Get.back();
-          //               }
-          //                                 },
-          //                                 child: Container(
-          //               padding: const EdgeInsets.all(8),
-          //               decoration: const BoxDecoration(
-          //                 color: AppColors.primaryWhite,
-          //                 shape: BoxShape.circle,
-          //                 boxShadow: [
-          //                   BoxShadow(
-          //                     color: Colors.black12,
-          //                     blurRadius: 5,
-          //                     offset: Offset(0, 3),
-          //                   ),
-          //                 ],
-          //               ),
-          //               child: Icon(
-          //                 controller.isRideSelectionVisible.value
-          //                     ? Icons.arrow_back_ios
-          //                     : Icons.menu,
-          //                 color: AppColors.primaryBlack,
-          //               ),
-          //                                 ),
-          //                               ),
-          //               Container(
-          //                 decoration: const BoxDecoration(
-          //                   color: Colors.white,
-          //                   shape: BoxShape.circle,
-          //                   boxShadow: [
-          //                     BoxShadow(
-          //                       color: Colors.black12,
-          //                       blurRadius: 5,
-          //                       offset: Offset(0, 3),
-          //                     ),
-          //                   ],
-          //                 ),
-          //                 child: Builder(
-          //                   builder: (BuildContext innerContext) {
-          //                     return IconButton(
-          //                       icon: const Icon(Icons.menu_rounded),
-          //                       color: Colors.black,
-          //                       onPressed: () {
-          //                         // Use the 'innerContext' provided by the Builder
-          //                         Scaffold.of(innerContext).openDrawer();
-          //                       },
-          //                     );
-          //                   },
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //     ),
-          //   ),
-          // ),
           Positioned(
             top: 50,
             left: 20,
@@ -198,52 +132,55 @@ class HomeView extends GetView<HomeController> {
 
 
   double _getSheetSize() {
-    if (controller.isSearchingForRide.value) return 0.65;
-    if (controller.isRideSelectionVisible.value) return 0.6;
-    return 0.4;
+    if (controller.isSearchingForRide.value) return 0.47;
+    if (controller.isRideSelectionVisible.value) return 0.47;
+    return 0.3;
   }
+
+
 
   Widget _buildQuickDestinationButton({required String label, required VoidCallback onTap}) {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Reduced padding
         decoration: BoxDecoration(
-          color: AppColors.primaryWhite,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 5,
-              offset: Offset(0, 3),
-            ),
-          ],
+          color: AppColors.backgroundLightGrey,
+          borderRadius: BorderRadius.circular(15), // Smaller radius
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.location_on, color: AppColors.iconColor),
-            const SizedBox(width: 8),
-            Text(label, style: const TextStyle(fontSize: 14)),
+            const Icon(Icons.location_on, color: AppColors.iconColor, size: 16), // Smaller icon
+            const SizedBox(width: 6), // Reduced spacing
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 12, // Reduced font size
+                color: AppColors.headlineTextColor,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
+
   Widget _buildVehicleSelectionPanel(BuildContext context, ScrollController scrollController) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0), // Reduced padding
       decoration: const BoxDecoration(
         color: AppColors.primaryWhite,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+          topLeft: Radius.circular(25), // Smaller radius
+          topRight: Radius.circular(25),
         ),
         boxShadow: [
           BoxShadow(
             color: Colors.black26,
-            blurRadius: 10,
-            offset: Offset(0, -5),
+            blurRadius: 8, // Reduced blur
+            offset: Offset(0, -4), // Reduced offset
           ),
         ],
       ),
@@ -252,15 +189,15 @@ class HomeView extends GetView<HomeController> {
         children: [
           Center(
             child: Container(
-              height: 5,
-              width: 40,
+              height: 2, // Smaller height
+              width: 30, // Smaller width
               decoration: BoxDecoration(
                 color: AppColors.dividerColor,
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(4),
               ),
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8), // Reduced spacing
           // Vehicle Options List
           _buildVehicleOption(
             type: 'Economy',
@@ -268,7 +205,7 @@ class HomeView extends GetView<HomeController> {
             eta: '2 min',
             seats: '6 Seats',
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8), // Reduced spacing
           _buildVehicleOption(
             type: 'Premium',
             price: '\$1.99',
@@ -276,33 +213,75 @@ class HomeView extends GetView<HomeController> {
             seats: '4 Seats',
             isPopular: true,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8), // Reduced spacing
           _buildVehicleOption(
             type: 'Carpool',
             price: '\$1.99',
             eta: '2 min',
             seats: '6 Seats',
           ),
-          const SizedBox(height: 30),
-          // Confirm Ride Button
-          ElevatedButton(
-            onPressed: () {
-              controller.requestRide();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.buttonYellow,
-              foregroundColor: AppColors.buttonTextBlack,
-              padding: const EdgeInsets.symmetric(vertical: 18),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
+          const SizedBox(height: 20), // Reduced spacing
+          SizedBox(
+            width: double.infinity, // full width
+            height: 45, // 👈 chhoti height set ki
+            child: ElevatedButton(
+              onPressed: () {
+                controller.requestRide();
+              },
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.zero, // important for gradient
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30), // pill shape
+                ),
+                backgroundColor: Colors.transparent, // remove default
+                shadowColor: Colors.transparent, // remove shadow
+              ),
+              child: Ink(
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color(0xFFFFF176), // light yellow (left)
+                      Color(0xFFFFD600), // dark yellow (right)
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'Confirm Ride',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black, // text color
+                    ),
+                  ),
+                ),
               ),
             ),
-            child: const Text('Confirm Ride', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          ),
+          )
+          // Confirm Ride Button
+          // ElevatedButton(
+          //   onPressed: () {
+          //     controller.requestRide();
+          //   },
+          //   style: ElevatedButton.styleFrom(
+          //     backgroundColor: AppColors.buttonYellow,
+          //     foregroundColor: AppColors.buttonTextBlack,
+          //     padding: const EdgeInsets.symmetric(vertical: 14), // Reduced padding
+          //     shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.circular(12), // Smaller radius
+          //     ),
+          //   ),
+          //   child: const Text('Confirm Ride', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)), // Smaller font size
+          // ),
         ],
       ),
     );
   }
+
 
   Widget _buildVehicleOption({
     required String type,
@@ -319,27 +298,27 @@ class HomeView extends GetView<HomeController> {
           child: Stack(
             children: [
               Container(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(12), // Reduced padding
                 decoration: BoxDecoration(
                   color: AppColors.primaryWhite,
-                  borderRadius: BorderRadius.circular(15),
-                  border: isSelected ? Border.all(color: AppColors.buttonOutline, width: 2) : Border.all(color: AppColors.dividerColor, width: 2),
+                  borderRadius: BorderRadius.circular(12), // Smaller radius
+                  border: isSelected ? Border.all(color: AppColors.buttonOutline, width: 1.5) : Border.all(color: AppColors.dividerColor, width: 0.5), // Smaller border width
                   boxShadow: [
                     BoxShadow(
                       color: isSelected ? AppColors.primaryYellow.withOpacity(0.1) : Colors.transparent,
-                      blurRadius: 10,
-                      offset: const Offset(0, 5),
+                      blurRadius: 8, // Reduced blur
+                      offset: const Offset(0, 4), // Reduced offset
                     ),
                   ],
                 ),
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 60,
-                      height: 60,
+                      width: 50, // Smaller width
+                      height: 50, // Smaller height
                       child: Image.asset('assets/images/carLogo.png'),
                     ),
-                    const SizedBox(width: 16),
+                    const SizedBox(width: 12), // Reduced spacing
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -347,38 +326,38 @@ class HomeView extends GetView<HomeController> {
                           Text(
                             type,
                             style: const TextStyle(
-                              fontSize: 18,
+                              fontSize: 16, // Reduced font size
                               fontWeight: FontWeight.bold,
                               color: AppColors.headlineTextColor,
                             ),
                           ),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: 2), // Reduced spacing
                           Row(
                             children: [
                               Text(
                                 price,
                                 style: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14, // Reduced font size
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.headlineTextColor,
                                 ),
                               ),
-                              const SizedBox(width: 8),
+                              const SizedBox(width: 6), // Reduced spacing
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(Icons.access_time, size: 16, color: AppColors.dividerColor),
-                                  const SizedBox(width: 4),
-                                  Text(eta, style: const TextStyle(color: AppColors.subheadlineTextColor)),
+                                  const Icon(Icons.access_time, size: 14, color: AppColors.dividerColor), // Smaller icon
+                                  const SizedBox(width: 2), // Reduced spacing
+                                  Text(eta, style: const TextStyle(fontSize: 12, color: AppColors.subheadlineTextColor)), // Reduced font size
                                 ],
                               ),
-                              const Spacer(),
+                              const SizedBox(width: 6),
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(Icons.person, size: 16, color: AppColors.dividerColor),
-                                  const SizedBox(width: 4),
-                                  Text(seats, style: const TextStyle(color: AppColors.subheadlineTextColor)),
+                                  const Icon(Icons.person, size: 14, color: AppColors.dividerColor), // Smaller icon
+                                  const SizedBox(width: 2), // Reduced spacing
+                                  Text(seats, style: const TextStyle(fontSize: 12, color: AppColors.subheadlineTextColor)), // Reduced font size
                                 ],
                               ),
                             ],
@@ -387,13 +366,13 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: 16, // Smaller width
+                      height: 16, // Smaller height
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: isSelected ? AppColors.primaryYellow : AppColors.dividerColor,
-                          width: 2,
+                          width: 1.5, // Smaller border width
                         ),
                         color: isSelected ? AppColors.primaryYellow : Colors.transparent,
                       ),
@@ -406,19 +385,19 @@ class HomeView extends GetView<HomeController> {
                   top: 0,
                   right: 0,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3), // Reduced padding
                     decoration: BoxDecoration(
                       color: AppColors.primaryYellow.withOpacity(0.1),
                       borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(15),
-                        bottomLeft: Radius.circular(15),
+                        topRight: Radius.circular(12), // Smaller radius
+                        bottomLeft: Radius.circular(12),
                       ),
                     ),
                     child: Text(
                       'Popular',
                       style: TextStyle(
-                        color: AppColors.primaryYellow.withOpacity(0.7),
-                        fontSize: 12,
+                        color: AppColors.primaryBlue.withOpacity(0.7),
+                        fontSize: 10, // Reduced font size
                       ),
                     ),
                   ),
@@ -432,18 +411,18 @@ class HomeView extends GetView<HomeController> {
 
   Widget _buildWhereToPanel(BuildContext context, ScrollController scrollController) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0), // Reduced horizontal padding
       decoration: const BoxDecoration(
         color: AppColors.primaryWhite,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+          topLeft: Radius.circular(20), // Smaller radius
+          topRight: Radius.circular(20),
         ),
         boxShadow: [
           BoxShadow(
             color: Colors.black26,
-            blurRadius: 10,
-            offset: Offset(0, -5),
+            blurRadius: 8, // Reduced blur
+            offset: Offset(0, -4), // Reduced offset
           ),
         ],
       ),
@@ -452,15 +431,15 @@ class HomeView extends GetView<HomeController> {
         children: [
           Center(
             child: Container(
-              height: 5,
-              width: 40,
+              height: 4, // Smaller height
+              width: 30, // Smaller width
               decoration: BoxDecoration(
                 color: AppColors.dividerColor,
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(4),
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 15), // Reduced vertical spacing
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -476,35 +455,39 @@ class HomeView extends GetView<HomeController> {
                 label: 'Hotel',
                 onTap: () => controller.selectDestination('Hotel'),
               ),
+              _buildQuickDestinationButton(
+                label: 'Gym',
+                onTap: () => controller.selectDestination('Gym'),
+              ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 15), // Reduced vertical spacing
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Reduced padding
             decoration: BoxDecoration(
               color: AppColors.primaryWhite,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(8), // Smaller radius
               border: Border.all(color: AppColors.dividerColor),
             ),
             child: Row(
               children: [
-                const Icon(Icons.location_on, color: AppColors.iconColor),
-                const SizedBox(width: 12),
+                const Icon(Icons.location_on, color: AppColors.iconColor, size: 20), // Smaller icon
+                const SizedBox(width: 8), // Reduced spacing
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Pickup Location',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 10, // Reduced font size
                         color: AppColors.subheadlineTextColor,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 2), // Reduced spacing
                     const Text(
                       'Current Location',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14, // Reduced font size
                         fontWeight: FontWeight.bold,
                         color: AppColors.headlineTextColor,
                       ),
@@ -514,7 +497,7 @@ class HomeView extends GetView<HomeController> {
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12), // Reduced vertical spacing
           InkWell(
             onTap: () async {
               final selectedDestination = await Get.toNamed(AppRoutes.searchView);
@@ -523,23 +506,23 @@ class HomeView extends GetView<HomeController> {
               }
             },
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Reduced padding
               decoration: BoxDecoration(
                 color: AppColors.primaryWhite,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(8), // Smaller radius
                 border: Border.all(color: AppColors.dividerColor),
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.location_on, color: AppColors.dividerColor),
-                  const SizedBox(width: 12),
+                  const Icon(Icons.location_on, color: AppColors.dividerColor, size: 20), // Smaller icon
+                  const SizedBox(width: 8), // Reduced spacing
                   Expanded(
                     child: Obx(() => Text(
                       controller.destination.value.isEmpty
                           ? 'Where to?'
                           : controller.destination.value,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14, // Reduced font size
                         color: controller.destination.value.isEmpty ? AppColors.hintTextColor : AppColors.headlineTextColor,
                       ),
                     )),
@@ -548,100 +531,94 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 15), // Reduced vertical spacing
         ],
       ),
     );
   }
 
+
+
   Widget _buildSearchingPanel(BuildContext context, ScrollController scrollController) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0), // Reduced padding
       decoration: const BoxDecoration(
         color: AppColors.primaryWhite,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+          topLeft: Radius.circular(25), // Smaller radius
+          topRight: Radius.circular(25),
         ),
         boxShadow: [
           BoxShadow(
             color: Colors.black26,
-            blurRadius: 10,
-            offset: Offset(0, -5),
+            blurRadius: 8, // Reduced blur
+            offset: Offset(0, -4), // Reduced offset
           ),
         ],
       ),
       child: ListView(
         controller: scrollController,
         children: [
-          Center(
-            child: Container(
-              height: 5,
-              width: 40,
-              decoration: BoxDecoration(
-                color: AppColors.dividerColor,
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-
           // Panel heading
+          LinearProgressIndicator(
+            minHeight: 2,
+            backgroundColor: AppColors.backgroundFaintYellow,
+          ),
+          SizedBox(height: 5,),
           Column(
             children: [
-              const SizedBox(
-                width: 60,
-                height: 60,
-                child: CircularProgressIndicator(color: AppColors.primaryYellow, strokeWidth: 5),
+               SizedBox(
+                width: 70, // Smaller width
+                height: 70, // Smaller height
+                child: Image.asset("assets/images/serchGlass.png"), // Smaller stroke width
               ),
-              const SizedBox(height: 16),
-              const Text(
+               const Text(
                 'Searching for cars nearby',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.headlineTextColor),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.headlineTextColor), // Reduced font size
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 2), // Reduced spacing
               Text(
                 'Please wait a couple of minutes...',
-                style: TextStyle(fontSize: 14, color: AppColors.subheadlineTextColor),
+                style: TextStyle(fontSize: 12, color: AppColors.subheadlineTextColor), // Reduced font size
               ),
             ],
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 10), // Reduced spacing
 
           // Location details
           Row(
             children: [
               Column(
                 children: [
-                  const Icon(Icons.location_on, color: AppColors.primaryBlack, size: 24),
+                  const Icon(Icons.location_on, color: AppColors.primaryBlack, size: 20), // Smaller icon
                   Container(
                     width: 2,
-                    height: 50,
+                    height: 40, // Reduced height
                     color: AppColors.dividerColor,
                   ),
-                  const Icon(Icons.location_on, color: AppColors.primaryYellow, size: 24),
+                  const Icon(Icons.location_on, color: AppColors.primaryYellow, size: 20), // Smaller icon
                 ],
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: 12), // Reduced spacing
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Shivajinagar, Pune', // Replace with dynamic pickup location
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      'Shivajinagar, Pune',
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold), // Reduced font size
                     ),
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 20), // Reduced spacing
                     Text(
-                      'ABZ Baner, Pune', // Replace with dynamic destination
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      'ABZ Baner, Pune',
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold), // Reduced font size
                     ),
                   ],
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10), // Reduced spacing
 
           // Price and Edit/Cancel buttons
           Row(
@@ -652,17 +629,17 @@ class HomeView extends GetView<HomeController> {
                 children: [
                   const Text(
                     '₹',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.headlineTextColor),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.buttonTextYellow), // Reduced font size
                   ),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: 2), // Reduced spacing
                   const Text(
                     '230',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.headlineTextColor),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.buttonTextYellow), // Reduced font size
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 6), // Reduced spacing
                   Text(
-                    '(Economy)',
-                    style: TextStyle(fontSize: 14, color: AppColors.subheadlineTextColor),
+                    '(Premium)',
+                    style: TextStyle(fontSize: 12, color: AppColors.subheadlineTextColor), // Reduced font size
                   ),
                 ],
               ),
@@ -671,18 +648,19 @@ class HomeView extends GetView<HomeController> {
                   // Logic to edit ride details
                 },
                 style: OutlinedButton.styleFrom(
+                  backgroundColor: AppColors.backgroundFaintYellow.withOpacity(0.3),
                   foregroundColor: AppColors.linkTextColor,
-                  side: const BorderSide(color: AppColors.linkTextColor),
+                  side: const BorderSide(color: AppColors.linkTextColor, width: 1), // Smaller border width
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(12), // Smaller radius
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Reduced padding
                 ),
-                child: const Text('Edit details...', style: TextStyle(fontSize: 14)),
+                child: const Text('Edit details...', style: TextStyle(fontSize: 12)), // Reduced font size
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16), // Reduced spacing
 
           // Cancel Ride Button
           ElevatedButton(
@@ -692,12 +670,12 @@ class HomeView extends GetView<HomeController> {
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.buttonYellow,
               foregroundColor: AppColors.buttonTextBlack,
-              padding: const EdgeInsets.symmetric(vertical: 18),
+              padding: const EdgeInsets.symmetric(vertical: 14), // Reduced padding
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(12), // Smaller radius
               ),
             ),
-            child: const Text('Cancel Ride', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            child: const Text('Cancel Ride', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)), // Reduced font size
           ),
         ],
       ),

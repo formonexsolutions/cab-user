@@ -29,7 +29,7 @@ class TrackDriver extends StatelessWidget {
           _buildRideTimeBox(),
 
           // This widget builds the detailed driver information card at the bottom.
-          _buildDriverInfoCard(),
+          _buildDriverInfoCard(controller),
         ],
       ),
     );
@@ -143,7 +143,7 @@ class TrackDriver extends StatelessWidget {
   }
 
   /// Builds the bottom card with driver and ride details.
-  Widget _buildDriverInfoCard() {
+  Widget _buildDriverInfoCard(RideDetailsController controller) {
     return Positioned(
       bottom: 0,
       left: 0,
@@ -162,7 +162,7 @@ class TrackDriver extends StatelessWidget {
           children: [
             _buildDriverDetailsRow(),
             const SizedBox(height: 20),
-            _buildActionButtonsRow(),
+            _buildActionButtonsRow(controller),
             const SizedBox(height: 20),
             _buildLocationRow(text: 'Shivajinagar, Pune', icon: Icons.location_on),
             const SizedBox(height: 10),
@@ -207,7 +207,7 @@ class TrackDriver extends StatelessWidget {
   }
 
   /// Helper to build the row containing 'Call Driver' and 'Cancel Ride' buttons.
-  Widget _buildActionButtonsRow() {
+  Widget _buildActionButtonsRow(RideDetailsController controller) {
     return Row(
       children: [
         Expanded(
@@ -225,7 +225,9 @@ class TrackDriver extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            controller.cancelRide();
+            },
           child: const Text(
             'Cancel Ride',
             style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),

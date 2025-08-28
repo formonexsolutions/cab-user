@@ -35,7 +35,7 @@ class RideDetailsController extends GetxController {
 
   void cancelRide() {
     // Add logic to cancel the ride
-    Get.snackbar('Ride Cancelled', 'Your ride has been cancelled.');
+    Get.toNamed(AppRoutes.cancelRidePage);
   }
 
 
@@ -71,4 +71,15 @@ class RideDetailsController extends GetxController {
     }
   }
 
+
+  var selectedReason = 'Waiting for long time'.obs;
+  var otherReasonText = ''.obs;
+
+  void selectReason(String reason) {
+    selectedReason.value = reason;
+  }
+
+  void updateOtherReason(String text) {
+    otherReasonText.value = text;
+  }
 }
