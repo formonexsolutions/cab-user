@@ -1,29 +1,29 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
-
-import '../Login/Views/AuthView.dart';
-import '../Login/Views/Login/LoginScreen.dart';
-import '../Login/Views/Login/otp_verification_page.dart';
-import '../Login/Views/Login/signup_page.dart';
-import '../Login/Views/Splash/SplashScreen1.dart';
-import '../Login/Views/Splash/SplashScreen2.dart';
-import '../Login/Views/Splash/SplashScreen3.dart';
-import '../Login/Views/Splash/WelcomePage.dart';
-import '../Login/Views/SplashScreen.dart';
-import '../View/Homepage/HomeMapScreen.dart';
-import '../View/Homepage/HomeScreen.dart';
-import '../View/Homepage/PaymentView.dart';
-import '../View/Homepage/RideCompletedView.dart';
-import '../View/Homepage/RideDetailsView.dart';
-import '../View/Homepage/SearchView.dart';
-import '../View/Homepage/trackDriver.dart';
+import '../modules/Homepage/HomeMapScreen.dart';
+import '../modules/Homepage/View/HomeScreen.dart';
+import '../modules/Homepage/View/PaymentView.dart';
+import '../modules/Homepage/View/RideCompletedView.dart';
+import '../modules/Homepage/View/RideDetailsView.dart';
+import '../modules/Homepage/View/SearchView.dart';
+import '../modules/Homepage/View/trackDriver.dart';
+import '../modules/Login/Views/AuthView.dart';
+import '../modules/Login/Views/Login/LoginScreen.dart';
+import '../modules/Login/Views/Login/otp_verification_page.dart';
+import '../modules/Login/Views/Login/signup_page.dart';
+import '../modules/Login/Views/Splash/SplashScreen1.dart';
+import '../modules/Login/Views/Splash/SplashScreen2.dart';
+import '../modules/Login/Views/Splash/SplashScreen3.dart';
+import '../modules/Login/Views/Splash/WelcomePage.dart';
+import '../modules/Login/Views/SplashScreen.dart';
 import 'Binding.dart';
 
 
 
 // A class to hold static route names for easy access.
 abstract class AppRoutes {
-  static const splash = '/';
+  static const splashInitial = '/';
+  static const splash = '/splash';
   static const splash2 = '/spalsh2';
   static const splash3 = '/splash3';
   static const welcome = '/welcome';
@@ -43,6 +43,15 @@ abstract class AppRoutes {
 // The list of all pages in the application with their bindings.
 abstract class AppPages {
   static final routes = [
+    GetPage(
+      name: AppRoutes.splashInitial,
+      page: () =>   SplashScreen(),
+      transition: Transition.rightToLeft, // Right-to-left transition
+      transitionDuration: const Duration(milliseconds: 500),
+      curve: Curves.easeIn,
+      binding: LoginBinding(),
+    ),
+
     GetPage(
       name: AppRoutes.splash,
       page: () => const SplashScreen1(),

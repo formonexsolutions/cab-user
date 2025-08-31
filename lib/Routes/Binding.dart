@@ -1,14 +1,11 @@
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
-
-import '../Login/Logincontrollers/AuthController.dart';
-import '../Login/Logincontrollers/LoginController.dart';
-import '../controllers/HomeControllers/HomeController.dart';
-import '../controllers/HomeControllers/search_controller.dart';
 import '../controllers/PaymentController.dart';
 import '../controllers/RideCompletedController.dart';
 import '../controllers/RideDetailsController.dart';
+import '../modules/Homepage/Controller/HomeController.dart';
+import '../modules/Homepage/Controller/search_controller.dart';
+import '../modules/Login/Logincontrollers/AuthController.dart';
+import '../modules/Login/Logincontrollers/LoginController.dart';
 
 class AuthBinding implements Bindings {
   @override

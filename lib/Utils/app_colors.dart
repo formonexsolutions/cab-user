@@ -23,6 +23,7 @@ class AppColors {
   // Background colors
   static const Color scaffoldBackground = primaryWhite;
   static Color textFieldBackground = Colors.grey[200]!;
+  static Color searchFieldYellowBackground = Color(0xFFFFF1CC);
   static const Color backgroundLightGrey = Color(0xFFF5F5F5);
 
   // Icon colors
