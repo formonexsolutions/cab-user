@@ -138,7 +138,7 @@ class HomeController extends GetxController {
 
   Future<void> fetchRideOptions() async {
     isLoading.value = true;
-    final url = "${ApiConstants.baseUrl}passenger/rides/options";
+    final url = ApiConstants.rideOpionsEndpoint;
 
     try {
       final response = await http.post(

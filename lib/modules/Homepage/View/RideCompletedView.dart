@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../Utils/CustomDrawer.dart';
-import '../../../Utils/app_colors.dart';
-import '../../../controllers/RideCompletedController.dart';
+import '../Controller/RideCompletedController.dart';
+import '../../../core/Utils/CustomDrawer.dart';
+import '../../../core/Utils/app_colors.dart';
 
 class RideCompletedView extends StatelessWidget {
   const RideCompletedView({Key? key}) : super(key: key);
@@ -113,10 +113,10 @@ class RideCompletedView extends StatelessWidget {
     required VoidCallback onPressed,
   }) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.primaryWhite,
         shape: BoxShape.circle,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 5,

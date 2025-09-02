@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../Utils/CustomDrawer.dart';
-import '../../../Utils/app_colors.dart';
-import '../../../controllers/PaymentController.dart';
+import '../Controller/PaymentController.dart';
+import '../../../core/Utils/CustomDrawer.dart';
+import '../../../core/Utils/app_colors.dart';
 
 
 class PaymentView extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
-import '../modules/Homepage/HomeMapScreen.dart';
+import '../modules/Homepage/googleMapDemo.dart';
 import '../modules/Homepage/View/HomeScreen.dart';
 import '../modules/Homepage/View/PaymentView.dart';
 import '../modules/Homepage/View/RideCompletedView.dart';

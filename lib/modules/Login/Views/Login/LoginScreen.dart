@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../../../Routes/AppRoutes.dart';
-import '../../../../Utils/app_colors.dart';
+import '../../../../core/Utils/app_colors.dart';
 import '../../Logincontrollers/LoginController.dart';
 
 class LoginPage extends StatelessWidget {

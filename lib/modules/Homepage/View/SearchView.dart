@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../Utils/app_colors.dart';
+import '../../../core/Utils/app_colors.dart';
 import '../Controller/HomeController.dart';
 import '../Controller/search_controller.dart';
 

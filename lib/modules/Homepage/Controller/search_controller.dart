@@ -71,7 +71,7 @@ class PlaceSearchController extends GetxController {
   Future<void> fetchPlaces(String query) async {
     try {
       isLoading.value = true;
-      final url = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.destinationEndpoint}$query');
+      final url = Uri.parse('${ApiConstants.destinationEndpoint}$query');
       final response = await http.get(url);
 
       if (response.statusCode == 200) {

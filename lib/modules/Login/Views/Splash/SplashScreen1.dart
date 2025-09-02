@@ -2,7 +2,8 @@ import 'package:car_travel/Routes/AppRoutes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../../../Utils/app_colors.dart';
+
+import '../../../../core/Utils/app_colors.dart';
 
 class SplashScreen1 extends StatelessWidget {
   const SplashScreen1({Key? key}) : super(key: key);

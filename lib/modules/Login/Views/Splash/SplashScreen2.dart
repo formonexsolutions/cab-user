@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../../Routes/AppRoutes.dart';
-import '../../../../Utils/app_colors.dart';
+import '../../../../core/Utils/app_colors.dart';
 
 
 

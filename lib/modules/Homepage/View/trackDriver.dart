@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_map/flutter_map.dart';
-import '../../../Utils/CustomDrawer.dart';
-import '../../../Utils/app_colors.dart';
-import '../../../controllers/RideDetailsController.dart';
+import '../Controller/RideDetailsController.dart';
+import '../../../core/Utils/CustomDrawer.dart';
+import '../../../core/Utils/app_colors.dart';
 
 const double _rideTimeBoxBottomPosition = 260.0;
 

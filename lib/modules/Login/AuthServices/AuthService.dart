@@ -16,7 +16,7 @@ class AuthService {
     required String role,
   })
   async {
-    final url = Uri.parse('${ApiConstants.baseUrl}/${ApiConstants.registerEndpoint}');
+    final url = Uri.parse(ApiConstants.registerEndpoint);
 
     final Map<String, dynamic> requestBody = {
       'name': name,
@@ -38,11 +38,14 @@ class AuthService {
       if (response.statusCode == 200) {
         // If successful, the response is Base64 encoded
         final String rawResponseBody = response.body;
+        print("#########################################################$rawResponseBody");
+
         final String decodedData = utf8.decode(base64.decode(rawResponseBody));
         return jsonDecode(decodedData);
       } else {
         // If not successful, the response is plain JSON
         final String errorBody = response.body;
+        print("#########################################################erro####$errorBody");
         return jsonDecode(errorBody);
       }
     } catch (e) {
@@ -56,7 +59,7 @@ class AuthService {
     required String otp,
   })
   async {
-    final url = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.verifyOtpEndpoint}');
+    final url = Uri.parse(ApiConstants.verifyOtpEndpoint);
 
     final Map<String, dynamic> requestBody = {
       'phone': "$phone",
@@ -89,7 +92,7 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>> authenticateUser() async {
-    final url = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.authUserEndpoint}');
+    final url = Uri.parse(ApiConstants.authUserEndpoint);
     // Read the stored token
     final token = box.read(StorageKeys.token);
 
@@ -127,7 +130,7 @@ class AuthService {
     required String phone,
   })
   async {
-    final url = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.loginEndpoint}');
+    final url = Uri.parse(ApiConstants.loginEndpoint);
 
     final Map<String, dynamic> requestBody = {
       'phone': phone,

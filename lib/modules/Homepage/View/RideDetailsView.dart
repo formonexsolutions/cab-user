@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
-import '../../../Utils/CustomDrawer.dart';
-import '../../../controllers/RideDetailsController.dart';
+import '../Controller/RideDetailsController.dart';
+import '../../../core/Utils/CustomDrawer.dart';
 
 class RideDetailsView extends GetView<RideDetailsController> {
   const RideDetailsView({super.key});

@@ -188,7 +188,7 @@ import 'package:car_travel/Routes/AppRoutes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../../../Utils/app_colors.dart';
+import '../../../../core/Utils/app_colors.dart';
 import '../../Logincontrollers/LoginController.dart';
 
 class OtpVerificationPage extends StatefulWidget {

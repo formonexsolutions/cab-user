@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'Routes/AppRoutes.dart';
 import 'controllers/GlobalController/globalController.dart';
+import 'modules/Homepage/googleMapDemo.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

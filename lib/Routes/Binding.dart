@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import '../controllers/PaymentController.dart';
-import '../controllers/RideCompletedController.dart';
-import '../controllers/RideDetailsController.dart';
+import '../modules/Homepage/Controller/PaymentController.dart';
+import '../modules/Homepage/Controller/RideCompletedController.dart';
+import '../modules/Homepage/Controller/RideDetailsController.dart';
 import '../modules/Homepage/Controller/HomeController.dart';
 import '../modules/Homepage/Controller/search_controller.dart';
 import '../modules/Login/Logincontrollers/AuthController.dart';
