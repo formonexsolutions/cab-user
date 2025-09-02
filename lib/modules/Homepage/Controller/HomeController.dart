@@ -207,6 +207,7 @@ class HomeController extends GetxController {
   }
   void cancelRide() {
     isSearchingForRide.value = false;
+    Get.toNamed(AppRoutes.cancelRideScreen);
   }
 
 }

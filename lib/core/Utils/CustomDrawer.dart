@@ -1,3 +1,4 @@
+import 'package:car_travel/Routes/AppRoutes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,8 +43,7 @@ class CustomDrawer extends StatelessWidget {
                 text: 'History',
                 onTap: () {
                   Get.back(); // Close the drawer
-                  // Navigate to History screen
-                  // Get.toNamed('/history');
+                  Get.toNamed(AppRoutes.allRidesPage);
                 },
               ),
               _buildDrawerItem(

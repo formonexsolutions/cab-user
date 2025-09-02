@@ -5,6 +5,7 @@ class AppColors {
   static const Color primaryYellow = Color(0xFFFFD700);
   static const Color primaryBlack = Colors.black87;
   static const Color primaryWhite = Colors.white;
+  static const Color primaryBlue = Color(0xFF007AFF);
 
   // Text colors
   static const Color headlineTextColor = primaryBlack;
@@ -28,6 +29,8 @@ class AppColors {
 
   // Icon colors
   static const Color iconColor = primaryYellow;
+  static const Color pickUpDotColor = Color(0xFF4CAF50);
+  static const Color dropOffDotColor = Color(0xFFF44336);
 
   static const Color greenAccent = Color(0xFF4CAF50);
 

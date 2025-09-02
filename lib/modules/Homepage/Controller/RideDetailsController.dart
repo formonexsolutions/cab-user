@@ -34,8 +34,7 @@ class RideDetailsController extends GetxController {
   }
 
   void cancelRide() {
-    // Add logic to cancel the ride
-    Get.snackbar('Ride Cancelled', 'Your ride has been cancelled.');
+    Get.toNamed(AppRoutes.cancelRideScreen);
   }
 
 

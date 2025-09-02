@@ -6,6 +6,8 @@ import '../modules/Homepage/Controller/HomeController.dart';
 import '../modules/Homepage/Controller/search_controller.dart';
 import '../modules/Login/Logincontrollers/AuthController.dart';
 import '../modules/Login/Logincontrollers/LoginController.dart';
+import '../modules/Ride/Controller/CancelRideController.dart';
+import '../modules/Ride/Controller/RideHistoryController.dart';
 
 class AuthBinding implements Bindings {
   @override
@@ -53,5 +55,19 @@ class PaymentViewBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<PaymentController>(() => PaymentController());
+  }
+}
+
+class CancelRideScreenBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<CancelRideController>(() => CancelRideController());
+  }
+}
+
+class AllRidesPageBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<AllRidesController>(() => AllRidesController());
   }
 }
