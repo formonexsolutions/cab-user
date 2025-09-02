@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'Routes/AppRoutes.dart';
-import 'controllers/GlobalController/globalController.dart';
+import 'controllers/globalController.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

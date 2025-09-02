@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../core/Constants/storage_keys.dart';
+import '../core/Constants/storage_keys.dart';
 
 
 class GlobalController extends GetxController {

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import '../../../controllers/GlobalController/globalController.dart';
+import '../../../controllers/globalController.dart';
 import '../../../core/Constants/api_constants.dart';
 import '../models/VehicleOption.dart';
 import 'package:geolocator/geolocator.dart';
