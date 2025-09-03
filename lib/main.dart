@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      // initialRoute: AppRoutes.homeMap, // Splash Screen
+      // initialRoute: AppRoutes.home, // Splash Screen
       initialRoute: AppRoutes.splashInitial, // Splash Screen
       getPages: AppPages.routes,
     );
