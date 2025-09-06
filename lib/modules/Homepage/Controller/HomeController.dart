@@ -137,6 +137,7 @@ class HomeController extends GetxController {
   var isLoading = false.obs;
 
   Future<void> fetchRideOptions() async {
+    print("*******************************************${globalController.token.value}");
     isLoading.value = true;
     final url = ApiConstants.rideOpionsEndpoint;
 

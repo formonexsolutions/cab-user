@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../core/Constants/api_constants.dart';
 import '../../../core/Constants/storage_keys.dart';
+import '../../../core/Utils/response_decoder.dart';
 
 
 class AuthService {
@@ -36,11 +37,7 @@ class AuthService {
 
       // Check for a successful status code before decoding
       if (response.statusCode == 200) {
-        // If successful, the response is Base64 encoded
-        final String rawResponseBody = response.body;
-        print("#########################################################$rawResponseBody");
-
-        final String decodedData = utf8.decode(base64.decode(rawResponseBody));
+        final String decodedData = ResponseDecoder.decode(response.body);
         return jsonDecode(decodedData);
       } else {
         // If not successful, the response is plain JSON
@@ -77,9 +74,7 @@ class AuthService {
 
       // Check for a successful status code
       if (response.statusCode == 200) {
-        // If successful, the response is Base64 encoded
-        final String rawResponseBody = response.body;
-        final String decodedData = utf8.decode(base64.decode(rawResponseBody));
+        final String decodedData = ResponseDecoder.decode(response.body);
         return jsonDecode(decodedData);
       } else {
         // If not successful, the response is plain JSON
@@ -95,6 +90,7 @@ class AuthService {
     final url = Uri.parse(ApiConstants.authUserEndpoint);
     // Read the stored token
     final token = box.read(StorageKeys.token);
+    print("#########@@@@@@@@@@@@$token");
 
     if (token == null) {
       throw Exception('No token found. User is not logged in.');
@@ -112,8 +108,8 @@ class AuthService {
       // Check for a successful status code
       if (response.statusCode == 200) {
         // Response is Base64 encoded, so decode it
-        final String rawResponseBody = response.body;
-        final String decodedData = utf8.decode(base64.decode(rawResponseBody));
+        final String decodedData = ResponseDecoder.decode(response.body);
+
         return jsonDecode(decodedData);
       } else {
         // Handle a non-successful response (e.g., invalid token)
@@ -147,8 +143,8 @@ class AuthService {
 
       // Assuming the response is Base64 encoded, just like the register and verify-otp APIs.
       if (response.statusCode == 200) {
-        final String rawResponseBody = response.body;
-        final String decodedData = utf8.decode(base64.decode(rawResponseBody));
+        final String decodedData = ResponseDecoder.decode(response.body);
+
         return jsonDecode(decodedData);
       } else {
         // If there's an error, assume a plain JSON response
